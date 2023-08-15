@@ -34,12 +34,13 @@ async function invokeAction({ action, id, name, email, phone }) {
 
       case 'add':
           const add = await addContact(name, email, phone);
-          console.log(`${add}, has been added`);
+          console.log(add, `has been added`);
 
       break;
 
       case 'remove':
           const remove = await removeContact(id);
+          if (!remove) console.log('contact not found');
           console.log(`Deleted contact:`, remove);
       break;
 

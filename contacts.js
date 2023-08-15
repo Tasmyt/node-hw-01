@@ -1,4 +1,4 @@
-const nanoid = require("nanoid");
+const {nanoid} = require("nanoid");
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -46,7 +46,7 @@ async function addContact(name, email, phone) {
       phone,
     };
     data.push(contactData);
-    await fs.writeln(contactsPath, JSON.stringify(data), "utf-8");
+    await fs.writeFile(contactsPath, JSON.stringify(data), "utf-8");
     return contactData;
   } catch (error) {
     console.error(error);
