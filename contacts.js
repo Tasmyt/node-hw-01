@@ -17,7 +17,7 @@ async function getContactById(contactId) {
   try {
     const data = await listContacts();
     const contact = data.find((item) => item.id === contactId);
-    return contact;
+    return contact || null;
   } catch (error) {
     console.error(error);
   }
@@ -27,9 +27,9 @@ async function removeContact(contactId) {
   try {
     const data = await listContacts();
     const contactDel = data.find((item) => item.id === contactId);
-    if (!contactDel) return;
+    if (!contactDel) return null;
     const contactsFilter = data.filter((item) => item.id !== contactId);
-    await fs.writeFile(contactsPath, JSON.stringify(contactsFilter), "utf-8");
+    await fs.writeFile(contactsPath, JSON.stringify(contactsFilter, null, 2), "utf-8");
     return contactDel;
   } catch (error) {
     console.error(error);
@@ -46,7 +46,7 @@ async function addContact(name, email, phone) {
       phone,
     };
     data.push(contactData);
-    await fs.writeFile(contactsPath, JSON.stringify(data), "utf-8");
+    await fs.writeFile(contactsPath, JSON.stringify(data, null, 2), "utf-8");
     return contactData;
   } catch (error) {
     console.error(error);
